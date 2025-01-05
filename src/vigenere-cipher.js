@@ -26,10 +26,9 @@ class VigenereCipheringMachine {
     this.value = value === undefined || value;
   }
   encrypt(text, per) {
-    if (!text || !per) throw new Error();
-
+    if (!text || !per) throw new Error("Incorrect arguments!");
     if(per.length < text.length) {
-      for (var i = 0; ; i += 1) {
+      for (let i = 0; ; i += 1) {
         if (text.length == i)
           i = 0;
         if (per.length == text.length)
@@ -37,13 +36,11 @@ class VigenereCipheringMachine {
         per += per[i];
       }
     }
-    var press_text="";
-
+    var press_text = "";
     text = text.toLowerCase();
     per = per.toLowerCase();
-
     var per_i = 0;
-    for (var i = 0; i < text.length; i += 1) {
+    for (let i = 0; i < text.length; i += 1) {
       if (ALPHABET.includes(text[i])) {
         var x = (ALPHABET.indexOf(text[i]) + ALPHABET.indexOf(per[per_i]))%26
         press_text += ALPHABET[x];
@@ -55,10 +52,9 @@ class VigenereCipheringMachine {
     return this.value ? press_text.toUpperCase() : press_text.split('').reverse().join('').toUpperCase();
   }
   decrypt(text, per) {
-    if (!text || !per) throw new Error();
-
+    if (!text || !per) throw new Error("Incorrect arguments!");
     if(per.length < text.length) {
-      for (var i = 0; ; i += 1) {
+      for (let i = 0; ; i += 1) {
         if (text.length == i)
           i = 0;
         if (per.length == text.length)
@@ -66,15 +62,13 @@ class VigenereCipheringMachine {
         per += per[i];
       }
     }
-    var natural_text="";
-
+    var natural_text = "";
     text = text.toLowerCase();
     per = per.toLowerCase();
-
     var per_i = 0;
-    for (var i = 0; i < text.length && i < per.length; i += 1) {
+    for (let i = 0; i < text.length && i < per.length; i += 1) {
       if (ALPHABET.includes(text[i])) {
-        var x = (ALPHABET.indexOf(text[i]) - ALPHABET.indexOf(per[per_i]) + 26)%26
+        var x = (ALPHABET.indexOf(text[i]) - ALPHABET.indexOf(per[per_i]) + 26) % 26
         natural_text += ALPHABET[x];
         per_i += 1;
       } else {
